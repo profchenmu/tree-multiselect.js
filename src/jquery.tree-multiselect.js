@@ -3,12 +3,13 @@
 
   $.fn.treeMultiselect = function(opts) {
     var options = mergeDefaultOptions(opts);
-    this.each(function() {
+    var treeElementArray = this.map(function() {
       var $originalSelect = $(this);
       $originalSelect.attr('multiple', '').css('display', 'none');
 
       var uiBuilder = new UiBuilder();
       uiBuilder.build($originalSelect, options.hideSidePanel);
+      var returnValue = uiBuilder.tree;
 
       var $selectionContainer = $(uiBuilder.selections);
 
@@ -37,8 +38,11 @@
       updateSelectedAndOnChange($selectionContainer, $selectedContainer, $originalSelect, options);
 
       armRemoveSelectedOnClick($selectionContainer, $selectedContainer, options);
+
+      return returnValue;
     });
-    return this;
+
+    return $(treeElementArray);
   };
 
   function mergeDefaultOptions(options) {

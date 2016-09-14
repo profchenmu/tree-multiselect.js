@@ -15,7 +15,7 @@ There seems to be a common misconception that the `select` you call this on is t
 
 ### Usage
 ```
-$("select").treeMultiselect();
+var $treeElements = $("select").treeMultiselect();
 ```
 
 Make sure your `select` has the `multiple` attribute set. Also, make sure you've got `<meta charset="UTF-8">` or some of the symbols may look strange.
