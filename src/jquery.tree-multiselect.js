@@ -247,7 +247,6 @@
         var checked = $titleCheckbox.is(':checked');
         setTimeout(function(){
           $checkboxesToBeChanged.prop('checked', !checked);
-          console.log(checked);
           if(checked){
             $section.find("span.check-temp").removeClass('checked');          
           }else{
