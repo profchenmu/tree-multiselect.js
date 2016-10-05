@@ -124,7 +124,7 @@
 
       var sectionTitle = document.createElement('div');
       sectionTitle.className = "title";
-      sectionTitle.innerHTML = title;
+      sectionTitle.innerHTML = '<b>' + title + '</b>';
 
       $(section).append(sectionTitle);
       $sectionContainer.append(section);
@@ -139,11 +139,12 @@
 
       var selection = document.createElement('div');
       selection.className = "item";
-      $(selection).text(text || value).attr({
+      var sectionIn = text || value;
+      $(selection).attr({
         'data-value': value,
         'data-description': description,
         'data-index': index
-      });
+      }).append($('<b>'+ sectionIn +'</b>'));
       $itemContainer.append(selection);
       return selection;
     }
@@ -188,8 +189,8 @@
   function addCheckboxes($selectionContainer, options) {
     var $checkbox = $('<input />', { type: 'checkbox' });
     if(options.iconClass){
-      // $checkbox.css('display', 'none');
-      var $checkTemp = $('<span class="check-temp">aaaaa</span>')    
+      $checkbox.css('display', 'none');
+      var $checkTemp = $('<span class="check-temp"></span>')    
     }
     if (options.freeze) {
       $checkbox.attr('disabled', 'disabled');
