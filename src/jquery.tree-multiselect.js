@@ -3,13 +3,12 @@
 
   $.fn.treeMultiselect = function(opts) {
     var options = mergeDefaultOptions(opts);
-    var treeElementArray = this.map(function() {
+    this.each(function() {
       var $originalSelect = $(this);
       $originalSelect.attr('multiple', '').css('display', 'none');
 
       var uiBuilder = new UiBuilder();
       uiBuilder.build($originalSelect, options.hideSidePanel);
-      var returnValue = uiBuilder.tree;
 
       var $selectionContainer = $(uiBuilder.selections);
 
@@ -38,11 +37,8 @@
       updateSelectedAndOnChange($selectionContainer, $selectedContainer, $originalSelect, options);
 
       armRemoveSelectedOnClick($selectionContainer, $selectedContainer, options);
-
-      return returnValue;
     });
-
-    return $(treeElementArray);
+    return this;
   };
 
   function mergeDefaultOptions(options) {
@@ -59,7 +55,8 @@
       sectionDelimiter: '/',
       showSectionOnSelected: true,
       sortable: false,
-      startCollapsed: false
+      startCollapsed: false,
+      iconClass: true
     };
     return $.extend({}, defaults, options);
   }
@@ -190,6 +187,10 @@
 
   function addCheckboxes($selectionContainer, options) {
     var $checkbox = $('<input />', { type: 'checkbox' });
+    if(options.iconClass){
+      // $checkbox.css('display', 'none');
+      var $checkTemp = $('<span class="check-temp">aaaaa</span>')    
+    }
     if (options.freeze) {
       $checkbox.attr('disabled', 'disabled');
     }
@@ -204,12 +205,16 @@
     }
 
     $checkbox.prependTo($targets);
+    $checkTemp.prependTo($targets);
     $selectionContainer.find('input[type=checkbox]').click(function(e) {
+      e.stopPropagation();
+    });
+    $selectionContainer.find('span').click(function(e) {
       e.stopPropagation();
     });
   }
 
-  function checkPreselectedSelections($originalSelect, $selectionContainer) {
+  function checkPreselectedSelections($originalSelect, $selectionContainer, options) {
     var selectedOptions = $originalSelect.val();
     if (!selectedOptions) return;
 
@@ -218,9 +223,13 @@
       return selectedOptions.indexOf(item.attr('data-value')) !== -1;
     });
     $selectedOptionDivs.find("> input[type=checkbox]").prop('checked', true);
+    if(options.iconClass){
+      $selectedOptionDivs.find("> span.check-temp").addClass('checked');    
+    }
   }
+  
 
-  function armTitleCheckboxes($selectionContainer) {
+  function armTitleCheckboxes($selectionContainer, options) {
     var $titleCheckboxes = $selectionContainer.find("div.title > input[type=checkbox]");
     $titleCheckboxes.change(function() {
       var $titleCheckbox = $(this);
@@ -229,19 +238,41 @@
       var checked = $titleCheckbox.is(':checked');
       $checkboxesToBeChanged.prop('checked', checked);
     });
+    if(options.iconClass){
+      $selectionContainer.find("div.title > span.check-temp").click(function(){
+        var checked2 = $(this).next('input').prop('checked');
+        var $titleCheckbox = $(this).next('input');
+        var $section = $titleCheckbox.closest("div.section");
+        var $checkboxesToBeChanged = $section.find("input[type=checkbox]");
+        var checked = $titleCheckbox.is(':checked');
+        setTimeout(function(){
+          $checkboxesToBeChanged.prop('checked', !checked);
+          console.log(checked);
+          if(checked){
+            $section.find("span.check-temp").removeClass('checked');          
+          }else{
+            $section.find("span.check-temp").addClass('checked');
+          }
+        },0);
+      });
+    }
+    
   }
 
-  function uncheckParentsOnUnselect($selectionContainer) {
+  function uncheckParentsOnUnselect($selectionContainer, options) {
     var $checkboxes = $selectionContainer.find("input[type=checkbox]");
     $checkboxes.change(function() {
       var $checkbox = $(this);
       if ($checkbox.is(":checked")) return;
       var $sectionParents = $checkbox.parentsUntil($selectionContainer, "div.section");
       $sectionParents.find("> div.title > input[type=checkbox]").prop('checked', false);
+      if(options.iconClass){
+        $sectionParents.find("> .check-temp").removeClass('checked');
+      }
     });
   }
 
-  function checkParentsOnAllChildrenSelected($selectionContainer) {
+  function checkParentsOnAllChildrenSelected($selectionContainer, options) {
     function check() {
       var sections = $selectionContainer.find("div.section");
       sections.each(function() {
@@ -254,14 +285,16 @@
         if ($unselectedItems.length === 0) {
           var sectionCheckbox = $(this).find("> div.title > input[type=checkbox]");
           sectionCheckbox.prop('checked', true);
+          if(options.iconClass){
+            $(this).find("> div.title > span.check-temp").addClass('checked');          
+          }
         }
       });
     }
-
-    onCheckboxChange($selectionContainer, check);
+    onCheckboxChange($selectionContainer, check, options);
   }
 
-  function showSemifilledParents($selectionContainer) {
+  function showSemifilledParents($selectionContainer, options) {
     function check() {
       var sections = $selectionContainer.find("div.section");
       sections.each(function() {
@@ -271,14 +304,20 @@
           var item = $(this);
           return item.find("> input[type=checkbox]").prop('checked');
         }).length;
-
         var $sectionCheckbox = $section.find("> div.title > input[type=checkbox]");
         var isIndeterminate = (numSelected !== 0 && numSelected !== $items.length);
         $sectionCheckbox.prop('indeterminate', isIndeterminate);
+        if(options.iconClass){
+          var $checkTemp = $sectionCheckbox.prev('span.check-temp');
+          if(isIndeterminate){
+            $checkTemp.removeClass('checked').addClass('indeterminate');
+          }else{
+            $checkTemp.removeClass('indeterminate');
+          }
+        }
       });
     }
-
-    onCheckboxChange($selectionContainer, check);
+    onCheckboxChange($selectionContainer, check, options);
   }
 
   function addCollapsibility($selectionContainer, options) {
@@ -325,13 +364,22 @@
     $selectionContainer.prepend($selectAllContainer);
 
     var $checkboxes = $selectionContainer.find("div.item").find("> input[type=checkbox]");
+    if(options.iconClass){
+      var $checkTemp = $selectionContainer.find("div.item").find("> span.check-temp");    
+    }
 
     $selectAll.unbind().click(function(e) {
       $checkboxes.prop('checked', true).change();
+      if($checkTemp){
+        $checkTemp.addClass('checked');      
+      }
     });
 
     $unselectAll.unbind().click(function(e) {
       $checkboxes.prop('checked', false).change();
+      if($checkTemp){
+        $checkTemp.removeClass('checked');      
+      }
     });
   }
 
@@ -479,15 +527,18 @@
       }
     }
 
-    onCheckboxChange($selectionContainer, update);
+    onCheckboxChange($selectionContainer, update, options);
   }
 
-  function armRemoveSelectedOnClick($selectionContainer, $selectedContainer) {
+  function armRemoveSelectedOnClick($selectionContainer, $selectedContainer, options) {
     $selectedContainer.find("span.remove-selected").unbind().click(function() {
       var value = $(this).parent().attr('data-value');
       var $matchingSelection = $selectionContainer.find("div.item[data-value='" + value + "']");
       var $matchingCheckbox = $matchingSelection.find("> input[type=checkbox]");
       $matchingCheckbox.prop('checked', false);
+      if(options.iconClass){
+        $matchingSelection.find("> span.check-temp").removeClass('checked');
+      }
       $matchingCheckbox.change();
     });
   }
@@ -524,14 +575,28 @@
     this.index = index;
   };
 
-  function onCheckboxChange($selectionContainer, callback) {
+  function onCheckboxChange($selectionContainer, callback, options) {
     var checkboxes = $selectionContainer.find("input[type=checkbox]");
     checkboxes.change(function() {
       callback();
     });
+    if(options.iconClass){
+      checkboxes.prev('span').click(function() {
+        var checked = $(this).next("input[type=checkbox]").prop('checked');
+        if(checked){
+          $(this).next("input[type=checkbox]").prop('checked', false);
+          $(this).removeClass('checked');
+        }else{
+          $(this).next("input[type=checkbox]").prop('checked', true);
+          $(this).addClass('checked');
+        }
+        setTimeout(function(){
+          callback();
+        },0);
+      });
+    }
     callback();
   }
-
   function textOf(el) {
     return $(el).clone().children().remove().end().text();
   }

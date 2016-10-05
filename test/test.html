@@ -2,33 +2,298 @@
 <html>
   <head>
     <title>Tree Multiselect test</title>
-
     <meta charset="UTF-8">
 
     <script src="./lib/jquery-1.11.3.min.js"></script>
-    <script src="./lib/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="lib/lodash.min.js"></script>
     <script src="../src/jquery.tree-multiselect.js"></script>
+    <script type="text/javascript">
+      this.cao = {
+  "code":"00",
+  "authTree":[
+    {
+      "id":57,
+      "text":"福利发放审核",
+      "state":{
+        "checked":"true"
+      }
+    },
+    {
+      "id":58,
+      "text":"资金划拨审核",
+      "state":{
+        "checked":"true"
+      }
+    }
+  ],
+  "message":"数据加载成功",
+  "treeData":[
+    {
+      "nodes":[
+        {
+          "nodes":[
+            {
+              "orgCode":"test_61",
+              "id":460,
+              "text":"万里通61"
+            },
+            {
+              "orgCode":"test_62",
+              "id":462,
+              "text":"万里通62"
+            },
+            {
+              "orgCode":"test_63",
+              "id":464,
+              "text":"万里通63"
+            },
+            {
+              "nodes":[
+                {
+                  "nodes":[
+                    {
+                      "orgCode":"test_6421",
+                      "id":478,
+                      "text":"万里通6421"
+                    },
+                    {
+                      "orgCode":"test_6422",
+                      "id":480,
+                      "text":"万里通6422"
+                    }
+                  ],
+                  "orgCode":"test_642",
+                  "id":472,
+                  "text":"万里通642"
+                },
+                {
+                  "nodes":[
+                    {
+                      "orgCode":"test_6412",
+                      "id":476,
+                      "text":"万里通6412"
+                    },
+                    {
+                      "orgCode":"test_6411",
+                      "id":474,
+                      "text":"万里通6411"
+                    }
+                  ],
+                  "orgCode":"test_641",
+                  "id":470,
+                  "text":"万里通641"
+                }
+              ],
+              "orgCode":"test_64",
+              "id":466,
+              "text":"万里通64"
+            },
+            {
+              "orgCode":"test_65",
+              "id":468,
+              "text":"万里通65"
+            }
+          ],
+          "orgCode":"test_6",
+          "id":342,
+          "text":"万里通6",
+          "state":{
+            "checked":"true"
+          }
+        },
+        {
+          "nodes":[
+            {
+              "orgCode":"test_55",
+              "id":458,
+              "text":"万里通55",
+              "state":{
+                "checked":"true"
+              }
+            },
+            {
+              "orgCode":"test_54",
+              "id":456,
+              "text":"万里通54"
+            },
+            {
+              "orgCode":"test_53",
+              "id":454,
+              "text":"万里通53"
+            },
+            {
+              "orgCode":"test_52",
+              "id":452,
+              "text":"万里通52"
+            },
+            {
+              "orgCode":"test_51",
+              "id":450,
+              "text":"万里通51"
+            }
+          ],
+          "orgCode":"test_5",
+          "id":340,
+          "text":"万里通5"
+        },
+        {
+          "nodes":[
+            {
+              "orgCode":"test_41",
+              "id":440,
+              "text":"万里通41"
+            },
+            {
+              "orgCode":"test_43",
+              "id":444,
+              "text":"万里通43"
+            },
+            {
+              "orgCode":"test_42",
+              "id":442,
+              "text":"万里通42"
+            },
+            {
+              "orgCode":"test_44",
+              "id":446,
+              "text":"万里通44"
+            },
+            {
+              "orgCode":"test_45",
+              "id":448,
+              "text":"万里通45"
+            }
+          ],
+          "orgCode":"test_4",
+          "id":338,
+          "text":"万里通4"
+        },
+        {
+          "nodes":[
+            {
+              "orgCode":"test_31",
+              "id":430,
+              "text":"万里通31"
+            },
+            {
+              "orgCode":"test_32",
+              "id":432,
+              "text":"万里通32"
+            },
+            {
+              "orgCode":"test_33",
+              "id":434,
+              "text":"万里通33"
+            },
+            {
+              "orgCode":"test_34",
+              "id":436,
+              "text":"万里通34"
+            },
+            {
+              "orgCode":"test_35",
+              "id":438,
+              "text":"万里通35"
+            }
+          ],
+          "orgCode":"test_3",
+          "id":336,
+          "text":"万里通3"
+        },
+        {
+          "nodes":[
+            {
+              "orgCode":"test_21",
+              "id":420,
+              "text":"万里通21"
+            },
+            {
+              "orgCode":"test_22",
+              "id":422,
+              "text":"万里通22"
+            },
+            {
+              "orgCode":"test_23",
+              "id":424,
+              "text":"万里通23"
+            },
+            {
+              "orgCode":"test_24",
+              "id":426,
+              "text":"万里通24"
+            },
+            {
+              "orgCode":"test_25",
+              "id":428,
+              "text":"万里通25"
+            }
+          ],
+          "orgCode":"test_2",
+          "id":334,
+          "text":"万里通2"
+        },
+        {
+          "nodes":[
+            {
+              "orgCode":"test_11",
+              "id":410,
+              "text":"万里通11"
+            },
+            {
+              "orgCode":"test_15",
+              "id":418,
+              "text":"万里通15"
+            },
+            {
+              "orgCode":"test_14",
+              "id":416,
+              "text":"万里通14"
+            },
+            {
+              "orgCode":"test_13",
+              "id":414,
+              "text":"万里通13"
+            },
+            {
+              "orgCode":"test_12",
+              "id":412,
+              "text":"万里通12"
+            }
+          ],
+          "orgCode":"test_1",
+          "id":332,
+          "text":"万里通1"
+        }
+      ],
+      "orgCode":"virtual_code",
+      "id":1,
+      "text":"万里通"
+    }
+  ]
+}
+    </script>
 
     <style>
       * {
         font-family: sans-serif;
+      }
+      .checked{
+        color: green;
+      }
+      .indeterminate{
+        color: yellow !important;
       }
     </style>
     <link rel="stylesheet" href="../dist/jquery.tree-multiselect.min.css">
   </head>
 
   <body>
+  <div class="form-group">
     <select id="test-select" multiple="multiple">
-      <option value="blueberry" data-section="Smoothies">Blueberry</option>
-      <option value="strawberry" data-section="Smoothies">Strawberries</option>
-      <option value="peach" data-section="Smoothies">Peach</option>
-      <option value="milk tea" data-section="Smoothies/Bubble Tea">Milk Tea</option>
-      <option value="green apple" data-section="Smoothies/Bubble Tea">Green Apple</option>
-      <option value="passion fruit" data-section="Smoothies/Bubble Tea" data-description="The greatest flavor" selected="selected">Passion Fruit</option>
-    </select>
 
-    <script type="text/javascript">
-      $("#test-select").treeMultiselect({ enableSelectAll: true, sortable: true });
-    </script>
+    </select>
+    </div>
+    <button id="cao">cao</button>
+    <script type="text/javascript" src="./treedemo.js"></script>
   </body>
 </html>
