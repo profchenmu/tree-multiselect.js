@@ -40,7 +40,7 @@ module.exports = function(grunt) {
     uglify: {
       dist: {
         options: {
-          preserveComments: false,
+          preserveComments: true,
         },
         files: {
           'dist/jquery.tree-multiselect.min.js': ['src/jquery.tree-multiselect.js']

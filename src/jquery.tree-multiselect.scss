@@ -27,7 +27,7 @@ div.tree-multiselect {
     border-right: solid 2px $color-border-light;
 
     div.item {
-      margin-left: 16px;
+      margin-left: 26px;
     }
 
     &.no-border {
@@ -50,7 +50,9 @@ div.tree-multiselect {
   div.section {
     > div.section,
     > div.item {
-      padding-left: 20px;
+      padding-left: 40px;
+      padding-top: 2px;
+      padding-bottom: 2px;
     }
   }
 
@@ -60,9 +62,9 @@ div.tree-multiselect {
   }
 
   div.title {
-    background: $color-bg-dark;
-    color: white;
     padding: 2px;
+    padding-top: 0;
+    padding-bottom: 0;
 
     > * {
       display: inline-block;
@@ -70,7 +72,7 @@ div.tree-multiselect {
 
     > span.collapse-section {
       margin: 0 3px;
-      width: 8px;
+      width: 18px;
     }
 
     &:hover {
