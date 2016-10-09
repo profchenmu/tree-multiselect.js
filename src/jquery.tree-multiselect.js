@@ -56,7 +56,7 @@
       showSectionOnSelected: true,
       sortable: false,
       startCollapsed: false,
-      iconClass: true
+      iconClass: false
     };
     return $.extend({}, defaults, options);
   }
@@ -206,7 +206,9 @@
     }
 
     $checkbox.prependTo($targets);
-    $checkTemp.prependTo($targets);
+    if(options.iconClass){
+      $checkTemp.prependTo($targets);
+    }
     $selectionContainer.find('input[type=checkbox]').click(function(e) {
       e.stopPropagation();
     });
